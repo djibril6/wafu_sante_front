@@ -1,0 +1,18 @@
+<form class="form-inline" (ngSubmit)="onLogin(f)" #f="ngForm">
+  <nb-card>
+  <nb-card-header>Se connecter</nb-card-header>
+  <nb-card-body>
+    <input type="tel" name="tel" maxlength="12" minlength="8" nbInput fullWidth placeholder="Téléphone" ngModel required><br><br>
+    <input type="password" name="pwd" nbInput fullWidth placeholder="Mot de passe" ngModel required><br><br>
+    <!-- <nb-select selected="1">
+        <nb-option value="1">Structure</nb-option>
+        <nb-option value="2">Structure1</nb-option>
+        <nb-option value="2">Structure2</nb-option>
+        <nb-option value="2">Structure3</nb-option>
+        <nb-option value="2">Structure4</nb-option>
+    </nb-select> <br><br> -->
+    <!-- <nb-checkbox status="warning">Rester connecté</nb-checkbox> -->
+    <button [disabled]="f.invalid" type="submit" nbButton status="primary">Se connecter</button> 
+  </nb-card-body>
+  </nb-card>
+</form>

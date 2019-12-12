@@ -1,0 +1,23 @@
+<div class="row" *ngIf="vg.connected">
+  <form class="form-inline col-lg-12 row" (ngSubmit)="onSearch(f)" #f="ngForm">
+    <nb-card class="col-lg-12 row">
+    <nb-card-body class="col-lg-12 row">
+      <input class="col-lg-7" type="tel" name="tel" maxlength="12" minlength="8" nbInput fullWidth placeholder="Téléphone du patient" ngModel required>
+      <div class="col-lg-1"></div>
+      <button class="col-lg-4" [disabled]="f.invalid" type="submit" nbButton status="primary">Rechercher</button> 
+    </nb-card-body>
+    </nb-card>
+  </form>
+</div>
+<div class="row">
+  <div class="col-lg-5">
+    <ngx-calendar></ngx-calendar>
+  </div>
+  <div class="col-lg-7">
+    <ngx-wafu-pub></ngx-wafu-pub>
+  </div>
+
+  <!-- <div class="col-xxxl-6 col-xxl-12 col-md-7">
+    <ngx-security-cameras></ngx-security-cameras>
+  </div> -->
+</div>

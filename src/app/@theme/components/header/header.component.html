@@ -1,0 +1,44 @@
+<div class="header-container">
+  <div class="logo-container">
+    <a (click)="toggleSidebar()" href="#" class="sidebar-toggle">
+      <nb-icon icon="menu-2-outline"></nb-icon>
+    </a>
+    <a class="logo" href="#" (click)="navigateHome()">WAFU-<span>Santé</span></a>
+  </div>
+  <nb-select [selected]="currentTheme" (selectedChange)="changeTheme($event)" status="primary">
+    <nb-option *ngFor="let theme of themes" [value]="theme.value"> {{ theme.name }}</nb-option>
+  </nb-select>
+</div>
+
+<div class="header-container">
+  <nb-actions size="small">
+
+    <nb-action class="control-item" *ngIf="!vg.connected">
+      <button  (click)="seConncter()" nbButton status="danger">Se connecter</button> 
+    </nb-action>
+
+    <nb-action class="control-item" *ngIf="vg.connected">
+      <button  (click)="onCreerDME()" nbButton status="info">Créer un DME</button> 
+    </nb-action>
+
+    <nb-action class="control-item" *ngIf="vg.connected">
+      <nb-search type="rotate-layout" placeholder="Tel du patient"></nb-search>
+    </nb-action>
+
+    <nb-action *ngIf="vg.connected" class="control-item" icon="email-outline" (click)="goToChat()"></nb-action>
+
+    <nb-action class="user-action" *nbIsGranted="['view', 'user']" >
+      <nb-user 
+              *ngIf="vg.connected"
+               [onlyPicture]="userPictureOnly"
+               [name]="vg.user?.response?.prenom"
+               (click)="action()">    
+      <!-- <nb-user 
+              *ngIf="vg.connected"
+               [onlyPicture]="userPictureOnly"
+               [name]="vg.user.response.prenom"
+               [picture]="user?.picture" (click)="action()"> -->
+      </nb-user>
+    </nb-action>
+  </nb-actions>
+</div>

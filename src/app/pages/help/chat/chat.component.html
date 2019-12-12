@@ -1,0 +1,41 @@
+<nb-card>
+  <nb-card-header>
+    <p class="chart-description">Si vous avez des questions vous pouvez discuter avec nous ici. Notre service clientèle vous repondra le plus rapidement possible.</p>
+  </nb-card-header>
+  <nb-card-body>
+    <div class="row">
+      <div class="chat-container col-md-12 col-lg-6 col-xxxl-6">
+        <nb-chat title="Vos conversations" size="large" status="primary">
+          <nb-chat-message *ngFor="let msg of messages"
+                           [type]="msg.type"
+                           [message]="msg.text"
+                           [reply]="msg.reply"
+                           [sender]="msg.user.name"
+                           [date]="msg.date"
+                           [files]="msg.files"
+                           [quote]="msg.quote"
+                           [latitude]="msg.latitude"
+                           [longitude]="msg.longitude"
+                           [avatar]="msg.user.avatar">
+          </nb-chat-message>
+          <nb-chat-form (send)="sendMessage($event)" [dropFiles]="true">
+          </nb-chat-form>
+        </nb-chat>
+      </div>
+      <div class="chat-container col-md-12 col-lg-6 col-xxxl-6">
+        <div class="chart-features">
+          <p>Mini guide:</p>
+          <ul>
+            <li>Vous pouvez envoyer differents types de messages (text, image, fichier, etc)</li>
+            <li>Pour envoyer un fichier vous pouvez le glisser et déposer dans la zone de saisie</li>
+          </ul>
+        </div>
+        <div>
+          <button nbButton status="success" outline>
+            Vous avez une urgence ? Appellez nous: +22790909090
+          </button>
+        </div>
+      </div>
+    </div>
+  </nb-card-body>
+</nb-card>

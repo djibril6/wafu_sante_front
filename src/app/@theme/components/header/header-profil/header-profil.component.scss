@@ -1,0 +1,17 @@
+@import '../../../../@theme/styles/themes';
+
+.myCard {
+  border-radius: 6px;
+  box-shadow: 0px 0px 6px;
+  
+  overflow: auto;
+  background: white;
+}
+
+  input {
+    width: 100%;
+  }
+
+  .cancel {
+    margin-right: 1rem;
+  }

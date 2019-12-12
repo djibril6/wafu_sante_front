@@ -1,0 +1,13 @@
+
+<div class="row">
+  <nb-card>
+    <nb-card-header>
+      Liste des utilisateurs
+    </nb-card-header>
+
+    <nb-card-body>
+      <ng2-smart-table [settings]="settings" [source]="source" (createConfirm)="createConfirm($event)" (deleteConfirm)="onDeleteConfirm($event)" (editConfirm)="onEditConfirm($event)">
+      </ng2-smart-table>
+    </nb-card-body>
+  </nb-card>
+</div>

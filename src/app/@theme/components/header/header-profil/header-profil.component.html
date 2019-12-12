@@ -1,0 +1,18 @@
+<div class="myCard card">
+  <div class="card-header">
+    Mettez à jour votre compte
+  </div>
+  <form class="form-inline" (ngSubmit)="modifier(f)" #f="ngForm">
+  <div class="card-body">
+      <input type="text" [value]="vg.user.response.nom" name="nom" nbInput fullWidth required placeholder="Nom" ngModel>
+      <input type="text" [value]="vg.user.response.prenom" name="prenom" nbInput fullWidth placeholder="Prénom" required ngModel>
+      <input type="tel" [value]="vg.user.response.tel" name="tel" nbInput fullWidth placeholder="Téléphone" required ngModel>
+      <input type="password" name="pwd" nbInput fullWidth placeholder="Nouveau Mot de passe" required ngModel>
+  </div>
+  <div class="card-footer">
+    <button class="cancel" nbButton status="danger" (click)="cancel()">Retour</button>
+    <button class="cancel" nbButton status="danger" (click)="logout()">Déconnection</button>
+    <button type="submit" nbButton [disabled]="f.invalid" status="success">Modifier</button>
+  </div>
+</form>
+</div>

@@ -1,0 +1,30 @@
+<!-- <ngx-updatedme></ngx-updatedme> -->
+
+<div class="row">
+  <div class="col-xxxl-3 col-xxl-4 col-lg-5 col-md-6">
+    <ngx-profil [profilPatient]="profilPatient"></ngx-profil>
+
+    <ngx-groupe [groupePatient]="groupePatient"></ngx-groupe>
+  </div>
+  <div class="col-xxxl-3 col-xxl-4 col-lg-7 col-md-6">
+    <ngx-contacts [contactPatient]="contactPatient"></ngx-contacts>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xxxl-3 col-md-6" *ngFor="let statusCard of statusCards">
+    <ngx-status-card [title]="statusCard.title" [type]="statusCard.type" [element]="statusCard.element" [elementObject]="statusCard.data" [nombre]="statusCard.nombre">
+      <i [ngClass]="statusCard.iconClass"></i>
+    </ngx-status-card>
+  </div>
+</div>
+
+<!-- <div class="row">
+  <div class="col-xxxl-6 col-xxl-6 col-lg-6 col-md-6">
+    <ngx-electricity></ngx-electricity>
+  </div>
+
+  <div class="col-xxxl-6 col-xxl-6 col-lg-6 col-md-6">
+    <ngx-electricity></ngx-electricity>
+  </div>
+</div> -->

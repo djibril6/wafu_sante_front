@@ -1,0 +1,89 @@
+<div class="lists row">
+    <div class="col-md-12 col-lg-12 col-xxxl-12">
+      <nb-accordion>
+        <nb-accordion-item #item>
+          <nb-accordion-item-header>
+            Person ID
+          </nb-accordion-item-header>
+          <nb-accordion-item-body>
+            <nb-list-item>
+              <nb-user [name]="contactPatient?.personID">
+              </nb-user>
+            </nb-list-item>
+          </nb-accordion-item-body>
+        </nb-accordion-item>
+  
+        <nb-accordion-item>
+          <nb-accordion-item-header>
+            Téléphnones
+          </nb-accordion-item-header>
+          <nb-accordion-item-body>
+            <nb-list-item *ngFor="let tel of contactPatient?.telephone">
+              <nb-user [name]="tel">
+              </nb-user>
+            </nb-list-item>
+          </nb-accordion-item-body>
+        </nb-accordion-item>
+
+        <nb-accordion-item>
+          <nb-accordion-item-header>
+            A contacter en cas d'urgence
+          </nb-accordion-item-header>
+          <nb-accordion-item-body>
+            <nb-list-item *ngFor="let tel of contactPatient?.contactUrgence">
+              <nb-user [name]="tel">
+              </nb-user>
+            </nb-list-item>
+          </nb-accordion-item-body>
+        </nb-accordion-item>
+  
+        <nb-accordion-item>
+          <nb-accordion-item-header>
+            Emails
+          </nb-accordion-item-header>
+          <nb-accordion-item-body>
+            <nb-list-item *ngFor="let email of contactPatient?.email">
+              <nb-user [name]="email">
+              </nb-user>
+            </nb-list-item>
+          </nb-accordion-item-body>
+        </nb-accordion-item>
+
+        <nb-accordion-item>
+          <nb-accordion-item-header>
+            Adresses
+          </nb-accordion-item-header>
+          <nb-accordion-item-body>
+            <nb-list-item *ngFor="let adresse of contactPatient?.adresse">
+              <nb-user [name]="adresse?.residence" [title]="adresse?.region+'/'+adresse?.pays">
+              </nb-user>
+            </nb-list-item>
+          </nb-accordion-item-body>
+        </nb-accordion-item>
+
+        <nb-accordion-item>
+          <nb-accordion-item-header>
+            Poids
+          </nb-accordion-item-header>
+          <nb-accordion-item-body>
+            <nb-list-item *ngFor="let poids of contactPatient?.poids">
+              <nb-user [name]="poids?.poids+''" [title]="'Enregistrée le : '+poids?.date">
+              </nb-user>
+            </nb-list-item>
+          </nb-accordion-item-body>
+        </nb-accordion-item>
+
+        <nb-accordion-item>
+          <nb-accordion-item-header>
+            Tailles
+          </nb-accordion-item-header>
+          <nb-accordion-item-body>
+            <nb-list-item *ngFor="let taille of contactPatient?.tailles">
+              <nb-user [name]="taille?.taille+''" [title]="'Enregistrée le : '+taille?.date">
+              </nb-user>
+            </nb-list-item>
+          </nb-accordion-item-body>
+        </nb-accordion-item>
+      </nb-accordion>
+    </div>
+</div>

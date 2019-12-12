@@ -1,0 +1,15 @@
+<form class="form-inline" (ngSubmit)="onSubmit(f)" #f="ngForm">
+    <nb-card>
+    <nb-card-body>
+      <nb-select selected="consultations" name="motif" ngModel>
+          <nb-option value="consultations">Consultations</nb-option>
+          <nb-option value="examens">examens</nb-option>
+          <nb-option value="hospitalisation">Hospitalisation</nb-option>
+      </nb-select> <br>
+      <input type="text" name="libelle" nbInput fullWidth placeholder="Titre, Libelle ou motif" ngModel>
+      <textarea name="details" rows="5" nbInput fullWidth shape="round"  placeholder="Details" ngModel></textarea><br>
+      <nb-checkbox name="checkbox" status="warning" ngModel>Je suis sur des infomations transmises</nb-checkbox><br>
+      <button type="submit" [disabled]="f.invalid" nbButton status="primary">Valider</button> 
+    </nb-card-body>
+    </nb-card>
+</form>

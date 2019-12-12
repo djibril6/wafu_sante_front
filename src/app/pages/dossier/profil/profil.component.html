@@ -1,0 +1,13 @@
+<nb-card size="medium">
+    <div *ngIf="!profilPatient?.photoProfil" class="picture" style="background-image: url('assets/images/profil.jpg')"></div>
+    <div *ngIf="profilPatient?.photoProfil" class="picture" [style]="'background-image: url(\'' +profilPatient?.photoProfil+ '\')'"></div>
+  
+    <nb-card-footer>
+      <div class="details">
+        <div class="h4">{{ profilPatient?.prenom }} {{ profilPatient?.nom }}</div>
+        <div class="description">
+          Né le <span>{{ profilPatient?.dateNaiss | date }}</span> <span> à {{ profilPatient?.lieuNaiss?.region }}/{{ profilPatient?.lieuNaiss?.pays }} </span>
+        </div>
+      </div>
+    </nb-card-footer>
+</nb-card>

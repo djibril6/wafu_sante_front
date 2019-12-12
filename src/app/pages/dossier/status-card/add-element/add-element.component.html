@@ -1,0 +1,37 @@
+<nb-tabset fullWidth>
+  <nb-tab [tabTitle]="'Liste des ' + windowRef.config.title">
+    <nb-accordion>
+      <nb-accordion-item #item *ngFor="let ligne of windowRef.config.context">
+        <nb-accordion-item-header>
+          <span *ngIf="ligne.libelle">{{ ligne.libelle }}</span>
+          <span *ngIf="!ligne.libelle">{{ ligne.dateAjout }}</span>
+        </nb-accordion-item-header>
+        <nb-accordion-item-body>
+          <nb-list-item>
+            <nb-user *ngIf="ligne.lieu" [name]="ligne?.lieu" [title]="ligne?.motif + '. ' + ligne?.details">
+            </nb-user>
+            <nb-user *ngIf="ligne.resultat" [name]="ligne?.resultat" [title]="'Ajouté le ' + ligne?.dateAjout">
+            </nb-user>
+            <nb-user *ngIf="ligne.traitement" [name]="ligne?.traitement" [title]="ligne?.details + '. Ajouté le' + ligne?.dateAjout">
+            </nb-user>
+            <nb-user *ngIf="!ligne.traitement && !ligne.resultat && !ligne.lieu" [name]="ligne?.details" [title]="'Ajouté le ' + ligne?.dateAjout">
+            </nb-user>
+          </nb-list-item>
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+    </nb-accordion>
+  </nb-tab>
+
+  <nb-tab [tabTitle]="'Ajouter ' + windowRef.config.title">
+    <form class="form-inline" (ngSubmit)="onSubmit(f)" #f="ngForm">
+      <nb-card>
+      <nb-card-body>
+        <input type="text" name="libelle" nbInput fullWidth placeholder="Titre, Libelle ou motif" required ngModel>
+        <textarea name="details" rows="5" nbInput fullWidth shape="round"  placeholder="Details (Comme traitement, resultats, ...)" ngModel></textarea><br>
+        <nb-checkbox required name="checkbox" status="warning" ngModel>Je suis sûr des infomations transmises</nb-checkbox><br>
+        <button type="submit" [disabled]="f.invalid" nbButton status="primary">Valider</button> 
+      </nb-card-body>
+      </nb-card>
+    </form>
+  </nb-tab>
+</nb-tabset>

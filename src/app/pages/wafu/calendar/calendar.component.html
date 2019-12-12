@@ -1,0 +1,8 @@
+<div class="calendars">
+  <div class="calendar-container">
+    <span class="subtitle">
+      Date Sélectionnée: {{ date | date }}
+    </span>
+    <nb-calendar [(date)]="date" [boundingMonth]="true" showWeekNumber></nb-calendar>
+  </div>
+</div>

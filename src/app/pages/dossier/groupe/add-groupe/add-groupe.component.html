@@ -1,0 +1,15 @@
+<form class="form-inline" (ngSubmit)="onSubmit(f)" #f="ngForm">
+  <nb-card>
+  <nb-card-body>
+    <nb-select placeholder="Groupe Sanguin" name="codeGroupe" ngModel>
+      <nb-option value="A+">A+</nb-option>
+      <nb-option value="B+">B+</nb-option>
+      <nb-option value="B-">B-</nb-option>
+      <nb-option value="O+">O+</nb-option>
+      <nb-option value="O-">O-</nb-option>
+    </nb-select> <br>
+    <nb-checkbox required name="checkbox" status="warning" ngModel>Je suis sûr des infomations transmises</nb-checkbox><br>
+    <button type="submit" [disabled]="f.invalid" nbButton status="primary">Valider</button> 
+  </nb-card-body>
+  </nb-card>
+</form>

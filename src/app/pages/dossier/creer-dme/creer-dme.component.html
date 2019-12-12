@@ -1,0 +1,73 @@
+<form class="form-inline" (ngSubmit)="onCreateDME(f)" #f="ngForm">
+    <nb-card>
+    <nb-card-header>Créer un dossier (Seuls les champs en rouge sont obligatoires)</nb-card-header>
+    <nb-card-body> 
+      <nb-stepper orientation="horizontal">
+      <nb-step [label]="labelOne">
+        <ng-template #labelOne>Identité</ng-template>
+        <input type="text" name="nom" nbInput fullWidth placeholder="NOM" required status="danger" ngModel>
+        <input type="text" name="prenom" nbInput fullWidth placeholder="Prénom" required status="danger" ngModel>
+        <input type="date" name="dateNaiss" nbInput fullWidth placeholder="Date de Naissance" required status="danger" ngModel>
+        <input type="text" name="lieuNaiss" nbInput fullWidth placeholder="Lieu de naissance" required status="danger" ngModel><br>
+        <nb-select placeholder="Pays de naissance" name="paysNaiss" ngModel>
+          <nb-option value="Niger">Niger</nb-option>
+        </nb-select> <br>
+        <button nbButton disabled nbStepperNext>prev</button>
+        <button nbButton nbStepperNext>next</button>
+      </nb-step>
+
+      <nb-step [label]="labelTwo">
+        <ng-template #labelTwo>Adresse</ng-template>
+        <div class="row">
+          <div class="col-lg-6">
+              <input type="tel" name="tel" minlength="8" maxlength="12" nbInput fullWidth placeholder="Téléphone" required status="danger" ngModel>
+              <input type="email" name="email" nbInput fullWidth placeholder="email" ngModel><br>
+              <nb-select placeholder="Pays" name="pays" ngModel>
+                <nb-option value="Niger">Niger</nb-option>
+              </nb-select> <br>
+              <input type="text" name="region" nbInput fullWidth placeholder="region" ngModel>
+              <input type="text" name="residence" nbInput fullWidth placeholder="residence" ngModel>
+          </div>
+          <div class="col-lg-6">
+              <input type="tel" name="contactUrgence1" maxlength="12" minlength="8" nbInput fullWidth placeholder="Numéro à contacter en cas d'urgence" required status="danger" ngModel>
+              <input type="tel" name="contactUrgence2" maxlength="12" minlength="8" nbInput fullWidth placeholder="Numéro à contacter en cas d'urgence" ngModel>
+              <input type="tel" name="contactUrgence3" maxlength="12" minlength="8" nbInput fullWidth placeholder="Numéro à contacter en cas d'urgence" ngModel>
+          </div>
+        </div>
+        <button nbButton nbStepperPrevious>prev</button>
+        <button nbButton nbStepperNext>next</button>
+      </nb-step>
+
+      <nb-step label="Caractéristques">
+        <nb-select placeholder="Groupe Sanguin" name="codeGroupe" ngModel>
+          <nb-option value="A+">A+</nb-option>
+          <nb-option value="B+">B+</nb-option>
+          <nb-option value="B-">B-</nb-option>
+          <nb-option value="O+">O+</nb-option>
+          <nb-option value="O-">O-</nb-option>
+        </nb-select> <br>
+        <input type="number" name="poids" nbInput fullWidth placeholder="poids (kg) actuel du patient" ngModel>
+        <input type="number" name="taille" nbInput fullWidth placeholder="taille (cm) actuelle du patient" ngModel>
+        <button nbButton nbStepperPrevious>prev</button>
+        <button nbButton nbStepperNext>next</button>
+      </nb-step>
+
+      <nb-step label="Alergies">
+        <textarea name="alergies" nbInput fullWidth placeholder="allergies (Séparer par des ;)" ngModel></textarea>
+        <textarea name="detailsAlergies" nbInput fullWidth placeholder="Details sur les allergies citées (Séparer par des ;)" ngModel></textarea>
+        <button nbButton nbStepperPrevious>prev</button>
+        <button nbButton nbStepperNext>next</button>
+      </nb-step>
+
+      <nb-step [label]="labelFour">
+        <ng-template #labelFour>Maladies</ng-template>
+        <textarea name="maladies" nbInput fullWidth placeholder="Maladies (Séparer par des ;)" ngModel></textarea>
+        <textarea name="traitementMaladies" nbInput fullWidth placeholder="Traitements sur les Maladies citées (Séparer par des ;)" ngModel></textarea><br>
+        <nb-checkbox status="warning" name="checkbox" required ngModel>Je suis sûr de la validité des infomations transmises</nb-checkbox><br>
+        <button nbButton nbStepperPrevious>prev</button>
+        <button nbButton [disabled]="f.invalid" nbStepperNext type="submit">Créer</button>
+      </nb-step>
+    </nb-stepper>
+    </nb-card-body>
+    </nb-card>
+</form>

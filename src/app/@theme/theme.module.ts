@@ -45,7 +45,7 @@ import { DEFAULT_THEME } from './styles/theme.default';
 import { COSMIC_THEME } from './styles/theme.cosmic';
 import { CORPORATE_THEME } from './styles/theme.corporate';
 import { DARK_THEME } from './styles/theme.dark';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './components/header/login/login.component';
 
 const NB_MODULES = [
@@ -88,7 +88,7 @@ const PIPES = [
 ];
 
 @NgModule({
-  imports: [CommonModule, FormsModule, ...NB_MODULES],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, ...NB_MODULES],
   exports: [CommonModule, ...PIPES, ...COMPONENTS],
   declarations: [...COMPONENTS, ...PIPES],
   entryComponents: [

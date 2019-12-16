@@ -126,13 +126,14 @@ export class AddElementComponent {
     .subscribe((res) => {
         if (res.body.success) {
             this.showToast('success', 'WAFU-Santé', res.body.message);
-            this.router.navigate(['/pages/notfound/' + this.vg.telPatient]);
+            this.router.navigate(['/pages/notfound/' + this.vg.patient.response.telephone]);
+            this.vg.historyData.filtre = 'DME';
             // tslint:disable-next-line: max-line-length
             this.vg.historyData.action = 'Mise à jour ' + this.vg.element + ' du patient: ' + this.vg.patient.response.personID;
-          this.vg.historyData.refStructure = this.vg.user.response.ref_structure;
-          this.vg.historyData.refUser = this.vg.user.response._id.toString();
-          this.historiqueService.addHistorique(this.vg.historyData)
-          .subscribe((res) => {});
+            this.vg.historyData.refStructure = this.vg.user.response.ref_structure;
+            this.vg.historyData.refUser = this.vg.user.response._id.toString();
+            this.historiqueService.addHistorique(this.vg.historyData)
+                .subscribe((res) => {});
             this.windowRef.close();
         } else {
             this.showToast('success', 'WAFU-Santé', res.body.message);

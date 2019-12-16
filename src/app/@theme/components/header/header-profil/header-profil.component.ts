@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { VarConfig } from '../../../../config/var.config';
 import { ToasterConfig } from 'angular2-toaster';
 import { UserService } from '../../../../pages/user/service/user.service';
-import { NgForm } from '@angular/forms';
+import { NgForm, FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { HistoriqueService } from '../../../../pages/historique/historique.service';
 
 @Component({
@@ -14,6 +14,8 @@ import { HistoriqueService } from '../../../../pages/historique/historique.servi
   styleUrls: ['header-profil.component.scss'],
 })
 export class HeaderProfilComponent {
+
+  form1: FormGroup;
 
   // Tost config
   config: ToasterConfig;
@@ -44,31 +46,43 @@ export class HeaderProfilComponent {
       config);
   }
 
-  constructor(protected ref: NbDialogRef<HeaderProfilComponent>, 
+  constructor(protected ref: NbDialogRef<HeaderProfilComponent>,
     private router: Router,
     public vg: VarConfig,
     private toastrService: NbToastrService,
     private userService: UserService,
-    private historiqueService: HistoriqueService) {}
+    private historiqueService: HistoriqueService,
+    private fb: FormBuilder) {
+      if (vg.connected) {
+        this.form1 = this.fb.group({
+          nom: [vg.user.response.nom, Validators.required],
+          prenom: [vg.user.response.prenom, Validators.required],
+          tel: [vg.user.response.tel, [Validators.required, Validators.minLength(8), Validators.maxLength(12)]],
+          pwd: ['', Validators.required],
+        });
+      }
+    }
 
   cancel() {
     this.ref.close();
   }
 
-  modifier(form: NgForm) {
+  modifier() {
     // tslint:disable-next-line: max-line-length
-    const data = {nom: form.value.nom, prenom: form.value.prenom, tel: form.value.tel, pwd: form.value.pwd, roles: this.vg.user.response.roles, actif: this.vg.user.response.actif};
+    const data = {nom: this.form1.value.nom, prenom: this.form1.value.prenom, tel: this.form1.value.tel, pwd: this.form1.value.pwd, roles: this.vg.user.response.roles, actif: this.vg.user.response.actif};
     this.userService.updateUser(this.vg.user.response.tel, data)
     .subscribe((res) => {
       if (res.body.success) {
         this.showToast('success', 'WAFU-Santé', res.body.message);
-        this.vg.connected = false;
-        this.vg.user = {};
-        this.vg.historyData.action = 'Modification de compte';
+        this.vg.historyData.filtre = 'gestionUser';
+        this.vg.historyData.action = 'Modification de son compte';
         this.vg.historyData.refStructure = this.vg.user.response.ref_structure;
         this.vg.historyData.refUser = this.vg.user.response._id.toString();
         this.historiqueService.addHistorique(this.vg.historyData)
         .subscribe((res) => {});
+        this.vg.connected = false;
+        this.vg.user = {};
+        this.vg.menu = this.vg.getMenu();
         this.router.navigate(['/pages/wafu']);
         this.ref.close();
       } else {
@@ -79,6 +93,7 @@ export class HeaderProfilComponent {
 
   logout() {
     this.vg.connected = false;
+    this.vg.menu = this.vg.getMenu();
     this.ref.close();
     this.showToast('danger', 'WAFU-Santé', 'Vous êtes déconnecté!');
     this.router.navigate(['/pages/wafu']);

@@ -83,7 +83,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       .subscribe(themeName => this.currentTheme = themeName);
 
       this.searchService.onSearchSubmit().subscribe(data => {
-        const url = '/pages/dossier/' + data.term;
+        const url = '/pages/notfound/' + data.term;
         this.router.navigate([url]);
       });
   }

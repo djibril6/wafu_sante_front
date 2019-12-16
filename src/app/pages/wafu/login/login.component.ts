@@ -5,7 +5,6 @@ import { NgForm } from '@angular/forms';
 import { UserService } from '../../user/service/user.service';
 import { VarConfig } from '../../../config/var.config';
 import { ToasterConfig } from 'angular2-toaster';
-import { PassThrough } from 'stream';
 import { HistoriqueService } from '../../historique/historique.service';
 
 @Component({
@@ -63,8 +62,9 @@ export class LoginComponent {
         if (res.body.success) {
           this.vg.connected = true;
           this.vg.user = res.body;
-          console.log(this.vg.user);
           this.showToast('success', 'WAFU-Santé', res.body.message);
+          this.vg.menu = this.vg.getMenu();
+          this.vg.historyData.filtre = 'login';
           this.vg.historyData.action = 'Connection sur un profil' + this.vg.user.response.roles[0];
           this.vg.historyData.refStructure = this.vg.user.response.ref_structure;
           this.vg.historyData.refUser = this.vg.user.response._id.toString();

@@ -142,6 +142,7 @@ export class FormInputsComponent {
           // event.confirm.resolve();
           this.geyAllUser();
           this.showToast('success', 'WAFU-Santé', res.body.message);
+          this.vg.historyData.filtre = 'gestionUser';
           this.vg.historyData.action = 'Mise d\'un compte à un état actif à : ' + user.actif;
           this.vg.historyData.refStructure = this.vg.user.response.ref_structure;
           this.vg.historyData.refUser = this.vg.user.response._id.toString();
@@ -164,6 +165,7 @@ export class FormInputsComponent {
         if (res.body.success) {
           this.oneUsers = res.body;
           event.confirm.resolve();
+          this.vg.historyData.filtre = 'gestionUser';
           this.vg.historyData.action = 'Modification du compte pour un USER vers le role : ' + event.newData.roles;
           this.vg.historyData.refStructure = this.vg.user.response.ref_structure;
           this.vg.historyData.refUser = this.vg.user.response._id.toString();
@@ -195,6 +197,7 @@ export class FormInputsComponent {
           if (this.oneUsers.success) {
             event.confirm.resolve();
             this.showToast('success', 'WAFU-Santé', this.oneUsers.message);
+            this.vg.historyData.filtre = 'gestionUser';
             this.vg.historyData.action = 'Création de compte User, profil: ' + event.newData.roles;
             this.vg.historyData.refStructure = this.vg.user.response.ref_structure;
             this.vg.historyData.refUser = this.vg.user.response._id.toString();

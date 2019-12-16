@@ -58,16 +58,37 @@ export class AddGroupeComponent {
 
   getGourpeSanguin(groupe) {
     switch (groupe) {
-        case 'A+':
-          return {libelle: 'A plus', code: groupe};
-          break;
-        case 'B+':
-          return {libelle: 'B Rhésius positif', code: groupe};
-          break;
+      case 'A+':
+        return 'A Rhésius positif';
+        break;
+      case 'B+':
+        return 'B Rhésius positif';
+        break;
 
-        default:
-            return {};
-          break;
+      case 'AB+':
+        return 'AB Rhésius positif';
+        break;
+      case 'O+':
+        return 'O Rhésius positif';
+        break;
+
+      case 'A-':
+        return 'A Rhésius négatif';
+        break;
+      case 'B-':
+        return 'B Rhésius négatif';
+        break;
+
+      case 'AB-':
+        return 'AB Rhésius négatif';
+        break;
+      case 'O-':
+        return 'O Rhésius négatif';
+        break;
+
+      default:
+          return '-';
+        break;
       }
   }
 
@@ -75,19 +96,20 @@ export class AddGroupeComponent {
     let data: any;
     let dataEnd: any;
 
-    data = this.getGourpeSanguin(form.value.codeGroupe);
+    data = {code: form.value.codeGroupe, libelle: this.getGourpeSanguin(form.value.codeGroupe)};
     dataEnd = {groupeSanguin: data};
     this.dossierService.updateDossier(this.vg.idPatient, dataEnd)
     .subscribe((res) => {
         if (res.body.success) {
             this.showToast('success', 'WAFU-Santé', res.body.message);
-            this.router.navigate(['/pages/notfound/' + this.vg.telPatient]);
+            this.router.navigate(['/pages/notfound/' + this.vg.patient.response.telephone]);
+            this.vg.historyData.filtre = 'DME';
             // tslint:disable-next-line: max-line-length
             this.vg.historyData.action = 'Mise à jour du groupe sanguin du patient: ' + this.vg.patient.response.personID;
-          this.vg.historyData.refStructure = this.vg.user.response.ref_structure;
-          this.vg.historyData.refUser = this.vg.user.response._id.toString();
-          this.historiqueService.addHistorique(this.vg.historyData)
-          .subscribe((res) => {});
+            this.vg.historyData.refStructure = this.vg.user.response.ref_structure;
+            this.vg.historyData.refUser = this.vg.user.response._id.toString();
+            this.historiqueService.addHistorique(this.vg.historyData)
+              .subscribe((res) => {});
             this.windowRef.close();
         } else {
             this.showToast('success', 'WAFU-Santé', res.body.message);

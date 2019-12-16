@@ -12,6 +12,26 @@
             </nb-list-item>
           </nb-accordion-item-body>
         </nb-accordion-item>
+
+        <nb-accordion-item #item>
+          <nb-accordion-item-header>
+            Identité / Passport
+          </nb-accordion-item-header>
+          <nb-accordion-item-body>
+            <nb-list-item *ngIf="contactPatient?.numCarte">
+              <nb-user [name]="contactPatient?.numCarte">
+              </nb-user>
+            </nb-list-item>
+            <nb-list-item *ngIf="contactPatient?.numPassport">
+              <nb-user [name]="contactPatient?.numPassport">
+              </nb-user>
+            </nb-list-item>
+            <nb-list-item *ngIf="contactPatient?.numCENI">
+              <nb-user [name]="contactPatient?.numCENI">
+              </nb-user>
+            </nb-list-item>
+          </nb-accordion-item-body>
+        </nb-accordion-item>
   
         <nb-accordion-item>
           <nb-accordion-item-header>

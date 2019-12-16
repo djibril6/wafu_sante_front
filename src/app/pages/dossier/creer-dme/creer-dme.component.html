@@ -1,73 +1,218 @@
-<form class="form-inline" (ngSubmit)="onCreateDME(f)" #f="ngForm">
-    <nb-card>
+
+  <nb-card>
     <nb-card-header>Créer un dossier (Seuls les champs en rouge sont obligatoires)</nb-card-header>
     <nb-card-body> 
-      <nb-stepper orientation="horizontal">
-      <nb-step [label]="labelOne">
+      <nb-stepper #stepper orientation="horizontal">
+      <nb-step [stepControl]="form1" [label]="labelOne">
         <ng-template #labelOne>Identité</ng-template>
-        <input type="text" name="nom" nbInput fullWidth placeholder="NOM" required status="danger" ngModel>
-        <input type="text" name="prenom" nbInput fullWidth placeholder="Prénom" required status="danger" ngModel>
-        <input type="date" name="dateNaiss" nbInput fullWidth placeholder="Date de Naissance" required status="danger" ngModel>
-        <input type="text" name="lieuNaiss" nbInput fullWidth placeholder="Lieu de naissance" required status="danger" ngModel><br>
-        <nb-select placeholder="Pays de naissance" name="paysNaiss" ngModel>
-          <nb-option value="Niger">Niger</nb-option>
-        </nb-select> <br>
-        <button nbButton disabled nbStepperNext>prev</button>
-        <button nbButton nbStepperNext>next</button>
+        <form (ngSubmit)="onCreateDME1()" [formGroup]="form1">
+          <div class="form-group row">
+            <label for="nom" class="label col-sm-3 col-form-label">NOM <span style="color: red;">*</span></label>
+            <div class="col-sm-9">
+                <input type="text" name="nom" id="nom" nbInput fullWidth placeholder="NOM" required formControlName="nom"
+                [ngClass]="{'form-control-danger': form1.invalid && (form1.dirty || form1.touched)}">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="prenom" class="label col-sm-3 col-form-label">Prénom <span style="color: red;">*</span></label>
+            <div class="col-sm-9">
+                <input type="text" name="prenom" id="prenom" nbInput fullWidth placeholder="Prénom" required formControlName="prenom"
+                [ngClass]="{'form-control-danger': form1.invalid && (form1.dirty || form1.touched)}">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="dateNaiss" class="label col-sm-3 col-form-label">Date de naissance <span style="color: red;">*</span></label>
+            <div class="col-sm-9">
+                <input name="dateNaiss" id="dateNaiss" nbInput [nbDatepicker]="formpicker" fullWidth placeholder="Date de Naissance" required formControlName="dateNaiss"
+                [ngClass]="{'form-control-danger': form1.invalid && (form1.dirty || form1.touched)}">
+                <nb-datepicker #formpicker></nb-datepicker>
+            </div>
+          </div>
+        
+
+          <div class="form-group row">
+            <label for="lieuNaiss" class="label col-sm-3 col-form-label">Lieu de Naissance <span style="color: red;">*</span></label>
+            <div class="col-sm-9">
+                <input type="text" name="lieuNaiss" id="lieuNaiss" nbInput fullWidth placeholder="Lieu de naissance" required formControlName="lieuNaiss"
+                [ngClass]="{'form-control-danger': form1.invalid && (form1.dirty || form1.touched)}">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="paysNaiss" class="label col-sm-3 col-form-label">Pays de naissance <span style="color: red;">*</span></label>
+            <div class="col-sm-9">
+              <nb-select placeholder="Pays de naissance" id="paysNaiss" name="paysNaiss" required formControlName="paysNaiss" [ngClass]="{'form-control-danger': form1.invalid && (form1.dirty || form1.touched)}">
+                <nb-option value="Niger">Niger</nb-option>
+              </nb-select>
+            </div>
+          </div>
+          <button nbButton disabled nbStepperNext>prev</button>
+          <button nbButton [disabled]="form1.invalid" type="submit" nbStepperNext>next</button>
+        </form>
       </nb-step>
 
-      <nb-step [label]="labelTwo">
+      <nb-step [stepControl]="form2" [label]="labelTwo">
         <ng-template #labelTwo>Adresse</ng-template>
+        <form (ngSubmit)="onCreateDME2()" [formGroup]="form2">
         <div class="row">
           <div class="col-lg-6">
-              <input type="tel" name="tel" minlength="8" maxlength="12" nbInput fullWidth placeholder="Téléphone" required status="danger" ngModel>
-              <input type="email" name="email" nbInput fullWidth placeholder="email" ngModel><br>
-              <nb-select placeholder="Pays" name="pays" ngModel>
-                <nb-option value="Niger">Niger</nb-option>
-              </nb-select> <br>
-              <input type="text" name="region" nbInput fullWidth placeholder="region" ngModel>
-              <input type="text" name="residence" nbInput fullWidth placeholder="residence" ngModel>
+            <div class="form-group row">
+              <label for="tel" class="label col-sm-3 col-form-label">Téléphone <span style="color: red;">*</span></label>
+              <div class="col-sm-9">
+                <input type="tel" name="tel" id="tel" minlength="8" maxlength="12" nbInput fullWidth placeholder="Téléphone" required formControlName="tel"
+                [ngClass]="{'form-control-danger': form2.invalid && (form2.dirty || form2.touched)}">
+              </div>
+            </div>
+
+          <div class="form-group row">
+            <label for="email" class="label col-sm-3 col-form-label">Email</label>
+            <div class="col-sm-9">
+                <input type="email" name="email" id="email" nbInput fullWidth placeholder="email" formControlName="email"
+                [ngClass]="{'form-control-danger': form2.invalid && (form2.dirty || form2.touched)}">
+            </div>
           </div>
+
+          <div class="form-group row">
+            <label for="pays" class="label col-sm-3 col-form-label">Pays</label>
+            <div class="col-sm-9">
+                <nb-select placeholder="Pays" name="pays" id="pays" formControlName="pays"
+                [ngClass]="{'form-control-danger': form2.invalid && (form2.dirty || form2.touched)}">
+                <nb-option value="Niger">Niger</nb-option>
+              </nb-select>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="region" class="label col-sm-3 col-form-label">Région</label>
+            <div class="col-sm-9">
+              <input type="text" name="region" id="region" nbInput fullWidth placeholder="region" formControlName="region"
+              [ngClass]="{'form-control-danger': form2.invalid && (form2.dirty || form2.touched)}">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="residence" class="label col-sm-3 col-form-label">Résidence</label>
+            <div class="col-sm-9">
+              <input type="text" name="residence" id="residence" nbInput fullWidth placeholder="residence" formControlName="residence"
+              [ngClass]="{'form-control-danger': form2.invalid && (form2.dirty || form2.touched)}">
+            </div>
+          </div>
+          </div>
+
           <div class="col-lg-6">
-              <input type="tel" name="contactUrgence1" maxlength="12" minlength="8" nbInput fullWidth placeholder="Numéro à contacter en cas d'urgence" required status="danger" ngModel>
-              <input type="tel" name="contactUrgence2" maxlength="12" minlength="8" nbInput fullWidth placeholder="Numéro à contacter en cas d'urgence" ngModel>
-              <input type="tel" name="contactUrgence3" maxlength="12" minlength="8" nbInput fullWidth placeholder="Numéro à contacter en cas d'urgence" ngModel>
+            <div class="form-group row">
+              <label for="numCarte" class="label col-sm-3 col-form-label">Carte d'identité</label>
+              <div class="col-sm-9">
+                <input type="text" name="numCarte" id="numCarte" nbInput fullWidth placeholder="Carte d'identité" formControlName="numCarte"
+                [ngClass]="{'form-control-danger': form2.invalid && (form2.dirty || form2.touched)}">
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="numPassport" class="label col-sm-3 col-form-label">Passport</label>
+              <div class="col-sm-9">
+                <input type="text" name="numPassport" id="numPassport" nbInput fullWidth placeholder="Numéro de Passport" formControlName="numPassport"
+                [ngClass]="{'form-control-danger': form2.invalid && (form2.dirty || form2.touched)}">
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="numCENI" class="label col-sm-3 col-form-label">Numéro CENI</label>
+              <div class="col-sm-9">
+                <input type="text" name="numCENI" id="numCENI" nbInput fullWidth placeholder="Numéro de CENI" formControlName="numCENI"
+                [ngClass]="{'form-control-danger': form2.invalid && (form2.dirty || form2.touched)}">
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="contactUrgence1" class="label col-sm-3 col-form-label">à contacter en cas d'urgence <span style="color: red;">*</span></label>
+              <div class="col-sm-9">
+                <input type="tel" name="contactUrgence1" id="contactUrgence1" maxlength="12" minlength="8" nbInput fullWidth placeholder="Numéro à contacter en cas d'urgence" required formControlName="contactUrgence1"
+                [ngClass]="{'form-control-danger': form2.invalid && (form2.dirty || form2.touched)}">
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="contactUrgence2" class="label col-sm-3 col-form-label">Autre numéro</label>
+              <div class="col-sm-9">
+                <input type="tel" name="contactUrgence2" id="contactUrgence2" maxlength="12" minlength="8" nbInput fullWidth placeholder="Numéro à contacter en cas d'urgence" formControlName="contactUrgence2"
+                [ngClass]="{'form-control-danger': form2.invalid && (form2.dirty || form2.touched)}">
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="contactUrgence3" class="label col-sm-3 col-form-label">Autre numéro</label>
+              <div class="col-sm-9">
+                  <input type="tel" name="contactUrgence3" id="contactUrgence3" maxlength="12" minlength="8" nbInput fullWidth placeholder="Numéro à contacter en cas d'urgence" formControlName="contactUrgence3"
+                  [ngClass]="{'form-control-danger': form2.invalid && (form2.dirty || form2.touched)}">
+              </div>
+            </div>
           </div>
         </div>
         <button nbButton nbStepperPrevious>prev</button>
-        <button nbButton nbStepperNext>next</button>
+        <button nbButton [disabled]="form2.invalid" type="submit" nbStepperNext>next</button>
+        </form>
       </nb-step>
 
-      <nb-step label="Caractéristques">
-        <nb-select placeholder="Groupe Sanguin" name="codeGroupe" ngModel>
-          <nb-option value="A+">A+</nb-option>
-          <nb-option value="B+">B+</nb-option>
-          <nb-option value="B-">B-</nb-option>
-          <nb-option value="O+">O+</nb-option>
-          <nb-option value="O-">O-</nb-option>
+      <nb-step [stepControl]="form3" label="Caractéristques">
+        <form (ngSubmit)="onCreateDME3()" [formGroup]="form3">
+        <nb-select placeholder="Groupe Sanguin" name="codeGroupe" formControlName="codeGroupe"
+        [ngClass]="{'form-control-danger': form3.invalid && (form3.dirty || form3.touched)}">
+            <nb-option value="AB+">AB+</nb-option>
+            <nb-option value="AB-">AB-</nb-option>
+            <nb-option value="A+">A+</nb-option>
+            <nb-option value="A-">A-</nb-option>
+            <nb-option value="B+">B+</nb-option>
+            <nb-option value="B-">B-</nb-option>
+            <nb-option value="O+">O+</nb-option>
+            <nb-option value="O-">O-</nb-option>
         </nb-select> <br>
-        <input type="number" name="poids" nbInput fullWidth placeholder="poids (kg) actuel du patient" ngModel>
-        <input type="number" name="taille" nbInput fullWidth placeholder="taille (cm) actuelle du patient" ngModel>
+          <div class="form-group row">
+            <label for="poids" class="label col-sm-3 col-form-label">Poids (kg)</label>
+            <div class="col-sm-9">
+              <input type="number" name="poids" id="poids" nbInput fullWidth placeholder="poids (kg) actuel du patient" formControlName="poids"
+              [ngClass]="{'form-control-danger': form3.invalid && (form3.dirty || form3.touched)}">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="taille" class="label col-sm-3 col-form-label">Taille (cm)</label>
+            <div class="col-sm-9">
+              <input type="number" name="taille" id="taille" nbInput fullWidth placeholder="taille (cm) actuelle du patient" formControlName="taille"
+              [ngClass]="{'form-control-danger': form3.invalid && (form3.dirty || form3.touched)}">
+            </div>
+          </div>
         <button nbButton nbStepperPrevious>prev</button>
-        <button nbButton nbStepperNext>next</button>
+        <button nbButton [disabled]="form3.invalid" type="submit" nbStepperNext>next</button>
+        </form>
       </nb-step>
 
-      <nb-step label="Alergies">
-        <textarea name="alergies" nbInput fullWidth placeholder="allergies (Séparer par des ;)" ngModel></textarea>
-        <textarea name="detailsAlergies" nbInput fullWidth placeholder="Details sur les allergies citées (Séparer par des ;)" ngModel></textarea>
-        <button nbButton nbStepperPrevious>prev</button>
-        <button nbButton nbStepperNext>next</button>
+      <nb-step [stepControl]="form4" label="Alergies">
+        <form (ngSubmit)="onCreateDME4()" [formGroup]="form4">
+          <textarea name="alergies" nbInput fullWidth placeholder="allergies (Séparer par des ;)" formControlName="alergies"
+          [ngClass]="{'form-control-danger': form4.invalid && (form4.dirty || form4.touched)}"></textarea>
+          <textarea name="detailsAlergies" nbInput fullWidth placeholder="Details sur les allergies citées (Séparer par des ;)" formControlName="detailsAlergies"
+          [ngClass]="{'form-control-danger': form4.invalid && (form4.dirty || form4.touched)}"></textarea>
+          <button nbButton nbStepperPrevious>prev</button>
+          <button nbButton [disabled]="form4.invalid" type="submit" nbStepperNext>next</button>
+        </form>
       </nb-step>
 
-      <nb-step [label]="labelFour">
+      <nb-step [stepControl]="form5" [label]="labelFour">
         <ng-template #labelFour>Maladies</ng-template>
-        <textarea name="maladies" nbInput fullWidth placeholder="Maladies (Séparer par des ;)" ngModel></textarea>
-        <textarea name="traitementMaladies" nbInput fullWidth placeholder="Traitements sur les Maladies citées (Séparer par des ;)" ngModel></textarea><br>
-        <nb-checkbox status="warning" name="checkbox" required ngModel>Je suis sûr de la validité des infomations transmises</nb-checkbox><br>
+        <form (ngSubmit)="onCreateDME5()" [formGroup]="form5">
+          <textarea name="maladies" nbInput fullWidth placeholder="Maladies (Séparer par des ;)" formControlName="maladies"
+          [ngClass]="{'form-control-danger': form5.invalid && (form5.dirty || form5.touched)}"></textarea>
+          <textarea name="traitementMaladies" nbInput fullWidth placeholder="Traitements sur les Maladies citées (Séparer par des ;)" formControlName="traitementMaladies"
+          [ngClass]="{'form-control-danger': form5.invalid && (form5.dirty || form5.touched)}"></textarea><br>
+          <nb-checkbox status="warning" name="checkbox" required formControlName="checkbox"
+          [ngClass]="{'form-control-danger': form5.invalid && (form5.dirty || form5.touched)}">Je suis sûr de la validité des infomations transmises</nb-checkbox><br>
         <button nbButton nbStepperPrevious>prev</button>
-        <button nbButton [disabled]="f.invalid" nbStepperNext type="submit">Créer</button>
+        <button nbButton [disabled]="form5.invalid" nbStepperNext type="submit">Créer</button>
+        </form>
       </nb-step>
     </nb-stepper>
     </nb-card-body>
-    </nb-card>
-</form>
+</nb-card>

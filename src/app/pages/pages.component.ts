@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 
-import { MENU_ITEMS, MENU_ITEMS_ADMIN, MENU_ITEMS_USER } from './pages-menu';
 import { VarConfig } from '../config/var.config';
 
 @Component({
@@ -8,26 +7,64 @@ import { VarConfig } from '../config/var.config';
   styleUrls: ['pages.component.scss'],
   template: `
     <ngx-one-column-layout>
-      <nb-menu [items]="menu"></nb-menu>
+      <nb-menu [items]="vg.menu"></nb-menu>
       <router-outlet></router-outlet>
     </ngx-one-column-layout>
   `,
 })
 export class PagesComponent {
 
-  menu = MENU_ITEMS_ADMIN;
+  menu = [
+    {
+      title: 'Tableau de bord',
+      icon: 'home-outline',
+      link: '/pages/dashboard',
+      home: true,
+    },
+    // {
+    //   title: 'Dossier',
+    //   icon: 'home-outline',
+    //   link: '/pages/dossier',
+    // },
+    {
+      title: 'GESTION',
+      group: true,
+    },
+    {
+      title: 'Gérer les utilisateurs',
+      icon: 'home-outline',
+      link: '/pages/users/inputs',
+      hidden: false,
+    },
+    {
+      title: 'Historiques',
+      icon: 'home-outline',
+      link: '/pages/historique/inputs',
+    },
+    {
+      title: 'ASSISTANCE',
+      group: true,
+    },
+    {
+      title: 'Chat',
+      icon: 'message-circle-outline',
+      link: '/pages/help/chat',
+    },
+    // {
+    //   title: 'Guide Utilisateur',
+    //   icon: 'message-circle-outline',
+    //   link: '/pages/help/chat',
+    // },
+    {
+      title: 'A PROPOS',
+      group: true,
+    },
+    {
+      title: 'WAFU',
+      icon: 'home-outline',
+      link: '/pages/wafu',
+    },
+  ];
 
-  constructor(private vg: VarConfig) {
-    if (vg.connected) {
-      if (vg.user.response.roles.includes('ADMIN')) {
-        this.menu = MENU_ITEMS_ADMIN;
-        console.log('yeahhhh');
-      } else {
-        this.menu = MENU_ITEMS_USER;
-        console.log('yeah');
-      }
-    } else {
-      this.menu = MENU_ITEMS_ADMIN;
-    }
-  }
+  constructor(public vg: VarConfig) {}
 }

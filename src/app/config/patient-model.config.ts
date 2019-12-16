@@ -7,6 +7,9 @@ export interface IPatient {
 interface PatientData {
     id?: string;
     personID?: string;
+    numCarte?: string;
+    numPassport?: string;
+    numCENI?: string;
     nom?: string;
     prenom?: string;
     dateNaiss?: string;

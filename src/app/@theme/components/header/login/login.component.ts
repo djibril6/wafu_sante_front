@@ -60,6 +60,8 @@ export class LoginComponent {
           this.vg.connected = true;
           this.vg.user = res.body;
           this.showToast('success', 'WAFU-Santé', res.body.message);
+          this.vg.menu = this.vg.getMenu();
+          this.vg.historyData.filtre = 'login';
           this.vg.historyData.action = 'Connection sur un profil' + this.vg.user.response.roles[0];
           this.vg.historyData.refStructure = this.vg.user.response.ref_structure;
           this.vg.historyData.refUser = this.vg.user.response._id.toString();

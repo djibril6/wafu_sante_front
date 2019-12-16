@@ -17,6 +17,7 @@ import {
   NbTooltipModule,
   NbAccordionModule,
   NbStepperModule,
+  NbDatepickerModule,
 } from '@nebular/theme';
 import { NgxEchartsModule } from 'ngx-echarts';
 
@@ -30,7 +31,7 @@ import { ElectricityChartComponent } from './electricity/electricity-chart/elect
 import { GroupeComponent } from './groupe/groupe.component';
 import { UpdateDMEComponent } from './update-dme/update-dme.component';
 import { FormDMEComponent } from './update-dme/form/form.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DossierService } from './service/dossier.service';
 import { CreerDMEComponent } from './creer-dme/creer-dme.component';
 import { AddElementComponent } from './status-card/add-element/add-element.component';
@@ -50,6 +51,7 @@ const MODULES = [
 @NgModule({
   imports: [
     FormsModule,
+    ReactiveFormsModule,
     ThemeModule,
     NbCardModule,
     NbUserModule,
@@ -62,6 +64,7 @@ const MODULES = [
     NbIconModule,
     NbButtonModule,
     NgxEchartsModule,
+    NbDatepickerModule,
     ...MODULES,
   ],
   declarations: [

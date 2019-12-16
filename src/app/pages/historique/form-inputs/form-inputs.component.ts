@@ -31,6 +31,9 @@ export class FormInputsComponent {
   allColumns = [ this.customColumn, ...this.defaultColumns ];
 
   dataSource: NbTreeGridDataSource<FSEntry>;
+  dataSourceDME: NbTreeGridDataSource<FSEntry>;
+  dataSourceLogin: NbTreeGridDataSource<FSEntry>;
+  dataSourceCompte: NbTreeGridDataSource<FSEntry>;
 
   sortColumn: string;
   sortDirection: NbSortDirection = NbSortDirection.NONE;
@@ -40,6 +43,9 @@ export class FormInputsComponent {
   radioGroupValue = 'This is value 2';
   allHistory: History;
   private data: TreeNode<FSEntry>[] = [];
+  private dataDME: TreeNode<FSEntry>[] = [];
+  private dataCompte: TreeNode<FSEntry>[] = [];
+  private dataLogin: TreeNode<FSEntry>[] = [];
 
   // tslint:disable-next-line: max-line-length
   constructor(private dataSourceBuilder: NbTreeGridDataSourceBuilder<FSEntry>, private dialogService: NbDialogService, private historiqueService: HistoriqueService, public vg: VarConfig) {
@@ -48,15 +54,43 @@ export class FormInputsComponent {
       .subscribe((res) => {
         if (res.body.success) {
           res.body.response.forEach(h => {
-            this.data.push({data: {
-              utilisateur: h.tel,
-              profil: h.profil[0],
-              action: h.action,
-              date: h.dateAction,
-              kind: 'dir',
-            }});
+            if (h.filtre === 'DME') {
+              this.dataDME.push({data: {
+                utilisateur: h.tel,
+                profil: h.profil[0],
+                action: h.action,
+                date: h.dateAction,
+                kind: 'dir',
+              }});
+            } else if (h.filtre === 'gestionUser') {
+              this.dataCompte.push({data: {
+                utilisateur: h.tel,
+                profil: h.profil[0],
+                action: h.action,
+                date: h.dateAction,
+                kind: 'dir',
+              }});
+            } else if (h.filtre === 'login') {
+              this.dataLogin.push({data: {
+                utilisateur: h.tel,
+                profil: h.profil[0],
+                action: h.action,
+                date: h.dateAction,
+                kind: 'dir',
+              }});
+            } else {
+              this.data.push({data: {
+                utilisateur: h.tel,
+                profil: h.profil[0],
+                action: h.action,
+                date: h.dateAction,
+                kind: 'dir',
+              }});
+            }
           });
-          console.log(this.data);
+          this.dataSourceDME = this.dataSourceBuilder.create(this.dataDME);
+          this.dataSourceCompte = this.dataSourceBuilder.create(this.dataCompte);
+          this.dataSourceLogin = this.dataSourceBuilder.create(this.dataLogin);
           this.dataSource = this.dataSourceBuilder.create(this.data);
         } else {}
       });

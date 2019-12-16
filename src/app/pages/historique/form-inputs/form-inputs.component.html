@@ -12,41 +12,135 @@
         </div>
       </nb-card-body>
     </nb-card>
-  </form>
+  </form> 
 </div> -->
+
 <div class="row">
   <nb-card>
-    <nb-card-body>
-      
-      <!-- <label class="search-label" for="search">Liste des utilisateurs:</label> -->
-      <input nbInput [nbFilterInput]="dataSource" id="search" class="search-input" placeholder="Saisir un filtre">
-  
-      <table [nbTreeGrid]="dataSource" [nbSort]="dataSource" (sort)="updateSort($event)">
-  
-        <tr nbTreeGridHeaderRow *nbTreeGridHeaderRowDef="allColumns"></tr>
-        <tr nbTreeGridRow *nbTreeGridRowDef="let row; columns: allColumns"></tr>
-  
-        <ng-container [nbTreeGridColumnDef]="customColumn">
-          <th nbTreeGridHeaderCell [nbSortHeader]="getSortDirection(customColumn)" *nbTreeGridHeaderCellDef>
-            {{customColumn}}
-          </th>
-          <td nbTreeGridCell *nbTreeGridCellDef="let row">
-            <ngx-fs-icon [kind]="row.data.kind" [expanded]="row.expanded"></ngx-fs-icon>
-            {{row.data[customColumn]}}
-          </td>
-        </ng-container>
-  
-        <ng-container *ngFor="let column of defaultColumns; let index = index"
-                      [nbTreeGridColumnDef]="column"
-                      [showOn]="getShowOn(index)">
-          <th nbTreeGridHeaderCell [nbSortHeader]="getSortDirection(column)" *nbTreeGridHeaderCellDef>
-            {{column}}
-          </th>
-          <td nbTreeGridCell *nbTreeGridCellDef="let row">{{row.data[column] || '-'}}</td>
-        </ng-container>
-  
-      </table>
-  
-    </nb-card-body>
+    <nb-tabset>
+      <nb-tab tabTitle="DME">
+        <!-- <label class="search-label" for="search">Liste des utilisateurs:</label> -->
+        <input nbInput [nbFilterInput]="dataSourceDME" id="search" class="search-input" placeholder="Saisir un filtre">
+        
+        <table [nbTreeGrid]="dataSourceDME" [nbSort]="dataSourceDME" (sort)="updateSort($event)">
+    
+          <tr nbTreeGridHeaderRow *nbTreeGridHeaderRowDef="allColumns"></tr>
+          <tr nbTreeGridRow *nbTreeGridRowDef="let row; columns: allColumns"></tr>
+    
+          <ng-container [nbTreeGridColumnDef]="customColumn">
+            <th nbTreeGridHeaderCell [nbSortHeader]="getSortDirection(customColumn)" *nbTreeGridHeaderCellDef>
+              {{customColumn}}
+            </th>
+            <td nbTreeGridCell *nbTreeGridCellDef="let row">
+              <ngx-fs-icon [kind]="row.data.kind" [expanded]="row.expanded"></ngx-fs-icon>
+              {{row.data[customColumn]}}
+            </td>
+          </ng-container>
+    
+          <ng-container *ngFor="let column of defaultColumns; let index = index"
+                        [nbTreeGridColumnDef]="column"
+                        [showOn]="getShowOn(index)">
+            <th nbTreeGridHeaderCell [nbSortHeader]="getSortDirection(column)" *nbTreeGridHeaderCellDef>
+              {{column}}
+            </th>
+            <td nbTreeGridCell *nbTreeGridCellDef="let row">{{row.data[column] || '-'}}</td>
+          </ng-container>
+    
+        </table>
+      </nb-tab>
+
+      <nb-tab tabTitle="Compte">
+        <!-- <label class="search-label" for="search">Liste des utilisateurs:</label> -->
+        <input nbInput [nbFilterInput]="dataSourceCompte" id="search" class="search-input" placeholder="Saisir un filtre">
+        
+        <table [nbTreeGrid]="dataSourceCompte" [nbSort]="dataSourceCompte" (sort)="updateSort($event)">
+    
+          <tr nbTreeGridHeaderRow *nbTreeGridHeaderRowDef="allColumns"></tr>
+          <tr nbTreeGridRow *nbTreeGridRowDef="let row; columns: allColumns"></tr>
+    
+          <ng-container [nbTreeGridColumnDef]="customColumn">
+            <th nbTreeGridHeaderCell [nbSortHeader]="getSortDirection(customColumn)" *nbTreeGridHeaderCellDef>
+              {{customColumn}}
+            </th>
+            <td nbTreeGridCell *nbTreeGridCellDef="let row">
+              <ngx-fs-icon [kind]="row.data.kind" [expanded]="row.expanded"></ngx-fs-icon>
+              {{row.data[customColumn]}}
+            </td>
+          </ng-container>
+    
+          <ng-container *ngFor="let column of defaultColumns; let index = index"
+                        [nbTreeGridColumnDef]="column"
+                        [showOn]="getShowOn(index)">
+            <th nbTreeGridHeaderCell [nbSortHeader]="getSortDirection(column)" *nbTreeGridHeaderCellDef>
+              {{column}}
+            </th>
+            <td nbTreeGridCell *nbTreeGridCellDef="let row">{{row.data[column] || '-'}}</td>
+          </ng-container>
+    
+        </table>
+      </nb-tab>
+
+      <nb-tab tabTitle="Login">
+        <!-- <label class="search-label" for="search">Liste des utilisateurs:</label> -->
+        <input nbInput [nbFilterInput]="dataSourceLogin" id="search" class="search-input" placeholder="Saisir un filtre">
+        
+        <table [nbTreeGrid]="dataSourceLogin" [nbSort]="dataSourceLogin" (sort)="updateSort($event)">
+    
+          <tr nbTreeGridHeaderRow *nbTreeGridHeaderRowDef="allColumns"></tr>
+          <tr nbTreeGridRow *nbTreeGridRowDef="let row; columns: allColumns"></tr>
+    
+          <ng-container [nbTreeGridColumnDef]="customColumn">
+            <th nbTreeGridHeaderCell [nbSortHeader]="getSortDirection(customColumn)" *nbTreeGridHeaderCellDef>
+              {{customColumn}}
+            </th>
+            <td nbTreeGridCell *nbTreeGridCellDef="let row">
+              <ngx-fs-icon [kind]="row.data.kind" [expanded]="row.expanded"></ngx-fs-icon>
+              {{row.data[customColumn]}}
+            </td>
+          </ng-container>
+    
+          <ng-container *ngFor="let column of defaultColumns; let index = index"
+                        [nbTreeGridColumnDef]="column"
+                        [showOn]="getShowOn(index)">
+            <th nbTreeGridHeaderCell [nbSortHeader]="getSortDirection(column)" *nbTreeGridHeaderCellDef>
+              {{column}}
+            </th>
+            <td nbTreeGridCell *nbTreeGridCellDef="let row">{{row.data[column] || '-'}}</td>
+          </ng-container>
+    
+        </table>
+      </nb-tab>
+
+      <nb-tab tabTitle="Autre">
+        <!-- <label class="search-label" for="search">Liste des utilisateurs:</label> -->
+        <input nbInput [nbFilterInput]="dataSource" id="search" class="search-input" placeholder="Saisir un filtre">
+        
+        <table [nbTreeGrid]="dataSource" [nbSort]="dataSource" (sort)="updateSort($event)">
+    
+          <tr nbTreeGridHeaderRow *nbTreeGridHeaderRowDef="allColumns"></tr>
+          <tr nbTreeGridRow *nbTreeGridRowDef="let row; columns: allColumns"></tr>
+    
+          <ng-container [nbTreeGridColumnDef]="customColumn">
+            <th nbTreeGridHeaderCell [nbSortHeader]="getSortDirection(customColumn)" *nbTreeGridHeaderCellDef>
+              {{customColumn}}
+            </th>
+            <td nbTreeGridCell *nbTreeGridCellDef="let row">
+              <ngx-fs-icon [kind]="row.data.kind" [expanded]="row.expanded"></ngx-fs-icon>
+              {{row.data[customColumn]}}
+            </td>
+          </ng-container>
+    
+          <ng-container *ngFor="let column of defaultColumns; let index = index"
+                        [nbTreeGridColumnDef]="column"
+                        [showOn]="getShowOn(index)">
+            <th nbTreeGridHeaderCell [nbSortHeader]="getSortDirection(column)" *nbTreeGridHeaderCellDef>
+              {{column}}
+            </th>
+            <td nbTreeGridCell *nbTreeGridCellDef="let row">{{row.data[column] || '-'}}</td>
+          </ng-container>
+    
+        </table>
+      </nb-tab>
+    </nb-tabset>
   </nb-card>
 </div>

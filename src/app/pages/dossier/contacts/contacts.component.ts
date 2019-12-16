@@ -8,6 +8,9 @@ import { Component, OnDestroy, Input } from '@angular/core';
 export class ContactsComponent implements OnDestroy {
   @Input() contactPatient: {
     personID: string,
+    numCarte?: string,
+    numPassport?: string,
+    numCENI?: string,
     adresse: [{residence: String, region: String, pays: String}],
     telephone: [string],
     contactUrgence: [string],

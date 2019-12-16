@@ -9,12 +9,14 @@ interface HistoryData {
     tel?: string;
     profil?: [string];
     action?: string;
+    filtre?: string;
     dateAction?: string;
 }
 
 interface HistoryDataAdd {
     refUser?: string;
     action?: string;
+    filtre?: string;
     refStructure?: string;
 }
 
@@ -30,6 +32,7 @@ export class HistoryAddData implements HistoryDataAdd {
     constructor(
         public refUser?: string,
         public action?: string,
+        public filtre?: string,
         public refStructure?: string,
     ) {}
 }

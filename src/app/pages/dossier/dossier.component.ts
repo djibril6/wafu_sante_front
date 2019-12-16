@@ -44,6 +44,9 @@ export class DossierComponent implements OnDestroy {
   };
   contactPatient: {
     personID: string,
+    numCarte?: string,
+    numPassport?: string,
+    numCENI?: string,
     adresse: [{residence: String, region: String, pays: String}],
     telephone: [string],
     contactUrgence: [string],
@@ -230,10 +233,11 @@ export class DossierComponent implements OnDestroy {
       if (!this.patient.success) {
         this.showToast(this.status, this.title, this.patient.message);
       } else {
+        this.vg.historyData.filtre = 'DME';
         this.vg.historyData.action = 'Consultation du dossier médical du patient: ' + this.patient.response.personID;
-          this.vg.historyData.refStructure = this.vg.user.response.ref_structure;
-          this.vg.historyData.refUser = this.vg.user.response._id.toString();
-          this.historiqueService.addHistorique(this.vg.historyData)
+        this.vg.historyData.refStructure = this.vg.user.response.ref_structure;
+        this.vg.historyData.refUser = this.vg.user.response._id.toString();
+        this.historiqueService.addHistorique(this.vg.historyData)
           .subscribe((res) => {});
       }
     });
@@ -292,6 +296,9 @@ export class DossierComponent implements OnDestroy {
   setContactPatient() {
     this.contactPatient = {
       personID: this.patient.response.personID,
+      numCarte: this.patient.response.numCarte,
+      numPassport: this.patient.response.numPassport,
+      numCENI: this.patient.response.numCENI,
       adresse: this.patient.response.adresse,
       telephone: this.patient.response.telephone,
       contactUrgence: this.patient.response.contactUrgence,

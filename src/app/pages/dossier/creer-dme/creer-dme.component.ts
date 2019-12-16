@@ -1,6 +1,6 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NbToastrService, NbComponentStatus, NbGlobalPosition, NbGlobalPhysicalPosition, NbDialogRef } from '@nebular/theme';
-import { NgForm } from '@angular/forms';
+import { NgForm, FormGroup, Validators, FormBuilder } from '@angular/forms';
 
 import { VarConfig } from '../../../config/var.config';
 import { ToasterConfig } from 'angular2-toaster';
@@ -13,9 +13,12 @@ import { HistoriqueService } from '../../historique/historique.service';
   templateUrl: 'creer-dme.component.html',
   styleUrls: ['creer-dme.component.scss'],
 })
-export class CreerDMEComponent implements OnDestroy {
+export class CreerDMEComponent implements OnDestroy, OnInit {
 
   createDMEData: {
+    numCarte: string,
+    numPassport: string,
+    numCENI: string,
     nom: string,
     prenom: string,
     dateNaiss: string,
@@ -58,6 +61,13 @@ export class CreerDMEComponent implements OnDestroy {
   };
   tel: string;
   uneDate = new Date();
+  dmeData: any;
+
+  form1: FormGroup;
+  form2: FormGroup;
+  form3: FormGroup;
+  form4: FormGroup;
+  form5: FormGroup;
 
    // Tost config
    config: ToasterConfig;
@@ -93,10 +103,99 @@ export class CreerDMEComponent implements OnDestroy {
     private toastrService: NbToastrService,
     protected ref: NbDialogRef<CreerDMEComponent>,
     private router: Router,
-    private historiqueService: HistoriqueService) {}
+    private historiqueService: HistoriqueService,
+    private fb: FormBuilder) {
+      this.createDMEData = {
+        numCarte: '...',
+        numPassport: '...',
+        numCENI: '...',
+        nom: '...',
+        prenom: '...',
+        dateNaiss: '...',
+        lieuNaiss: {
+          region: '...',
+          pays: '...',
+        },
+        telephone: ['...'],
+        email: ['...'],
+        adresse: [{
+          residence: '...',
+          region: '...',
+          pays: '...',
+        }],
+        createBy: '...',
+        groupeSanguin: {
+          libelle: '...',
+          code: '...',
+        },
+        contactUrgence: ['...'],
+        tailles: [{
+          taille: 0,
+          date: this.uneDate.getFullYear() + '-' + (this.uneDate.getMonth() + 1) + '-' + (this.uneDate.getDay() + 1),
+        }],
+        poids: [{
+          poids: 0,
+          date: this.uneDate.getFullYear() + '-' + (this.uneDate.getMonth() + 1) + '-' + (this.uneDate.getDay() + 1),
+        }],
+        alergies: [{
+          libelle: '...',
+          // tslint:disable-next-line: max-line-length
+          dateAjout: this.uneDate.getFullYear() + '-' + (this.uneDate.getMonth() + 1) + '-' + (this.uneDate.getDay() + 1),
+          details: '...',
+        }],
+        maladies: [{
+          libelle: '...',
+          // tslint:disable-next-line: max-line-length
+          dateAjout: this.uneDate.getFullYear() + '-' + (this.uneDate.getMonth() + 1) + '-' + (this.uneDate.getDay() + 1),
+          details: '...',
+          traitement: '...',
+        }],
+      };
+    }
 
   close() {
     this.ref.close();
+  }
+
+  ngOnInit() {
+    this.form1 = this.fb.group({
+      nom: ['', Validators.required],
+      prenom: ['', Validators.required],
+      dateNaiss: ['', Validators.required],
+      lieuNaiss: ['', Validators.required],
+      paysNaiss: ['', Validators.required],
+    });
+
+    this.form2 = this.fb.group({
+      tel: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(12)]],
+      email: ['', Validators.email],
+      pays: '',
+      region: '',
+      residence: '',
+      numCarte: '',
+      numPassport: '',
+      numCENI: '',
+      contactUrgence1: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(12)]],
+      contactUrgence2: ['', [Validators.minLength(8), Validators.maxLength(12)]],
+      contactUrgence3: ['', [Validators.minLength(8), Validators.maxLength(12)]],
+    });
+
+    this.form3 = this.fb.group({
+      codeGroupe: '',
+      poids: ['', Validators.min(0)],
+      taille: ['', Validators.min(0)],
+    });
+
+    this.form4 = this.fb.group({
+      alergies: '',
+      detailsAlergies: '',
+    });
+
+    this.form5 = this.fb.group({
+      maladies: '',
+      traitementMaladies: '',
+      checkbox: ['', Validators.required],
+    });
   }
 
   ngOnDestroy() {
@@ -107,58 +206,19 @@ export class CreerDMEComponent implements OnDestroy {
     }
   }
 
-  onCreateDME(form: NgForm) {
-    this.createDMEData = {
-      nom: '...',
-      prenom: '...',
-      dateNaiss: '...',
-      lieuNaiss: {
-        region: '...',
-        pays: '...',
-      },
-      telephone: ['...'],
-      email: ['...'],
-      adresse: [{
-        residence: '...',
-        region: '...',
-        pays: '...',
-      }],
-      createBy: '...',
-      groupeSanguin: {
-        libelle: '...',
-        code: '...',
-      },
-      contactUrgence: ['...'],
-      tailles: [{
-        taille: 0,
-        date: this.uneDate.getFullYear() + '-' + (this.uneDate.getMonth() + 1) + '-' + (this.uneDate.getDay() + 1),
-      }],
-      poids: [{
-        poids: 0,
-        date: this.uneDate.getFullYear() + '-' + (this.uneDate.getMonth() + 1) + '-' + (this.uneDate.getDay() + 1),
-      }],
-      alergies: [{
-        libelle: '...',
-        dateAjout: this.uneDate.getFullYear() + '-' + (this.uneDate.getMonth() + 1) + '-' + (this.uneDate.getDay() + 1),
-        details: '...',
-      }],
-      maladies: [{
-        libelle: '...',
-        dateAjout: this.uneDate.getFullYear() + '-' + (this.uneDate.getMonth() + 1) + '-' + (this.uneDate.getDay() + 1),
-        details: '...',
-        traitement: '...',
-      }],
-    };
-
-    let formValue = form.value;
-
+  onCreateDME1(data?) {
+    this.form1.markAsDirty();
+    let formValue = data;
     this.createDMEData.nom = formValue.nom;
     this.createDMEData.prenom = formValue.prenom;
     this.createDMEData.dateNaiss = formValue.dateNaiss;
 
     if (!formValue.paysNaiss) formValue.paysNaiss = '...';
     if (formValue.lieuNaiss) this.createDMEData.lieuNaiss = {region: formValue.lieuNaiss, pays: formValue.paysNaiss};
-
+  }
+  onCreateDME2(data?) {
+    this.form2.markAsDirty();
+    let formValue = data;
     if (formValue.tel) this.createDMEData.telephone = [formValue.tel];
 
     if (formValue.email) this.createDMEData.email = [formValue.email];
@@ -168,9 +228,12 @@ export class CreerDMEComponent implements OnDestroy {
     // tslint:disable-next-line: max-line-length
     if (formValue.residence) this.createDMEData.adresse = [{residence: formValue.residence, region: formValue.region, pays: formValue.pays}];
 
-    this.createDMEData.createBy = this.vg.appID;
-    // tslint:disable-next-line: max-line-length
-    if (formValue.codeGroupe) this.createDMEData.groupeSanguin = {libelle: this.getGroupe(formValue.codeGroupe), code: formValue.codeGroupe};
+    if (!formValue.numCarte) formValue.numCarte = '...';
+    if (!formValue.numPassport) formValue.numPassport = '...';
+    if (!formValue.numCENI) formValue.numCENI = '...';
+    this.createDMEData.numPassport = formValue.numPassport;
+    this.createDMEData.numCENI = formValue.numCENI;
+    this.createDMEData.numCarte = formValue.numCarte;
 
     if (formValue.contactUrgence1) {
       this.createDMEData.contactUrgence = [formValue.contactUrgence1];
@@ -182,22 +245,45 @@ export class CreerDMEComponent implements OnDestroy {
     } else if (formValue.contactUrgence3) {
       this.createDMEData.contactUrgence = [formValue.contactUrgence3];
     }
+  }
+  onCreateDME3(data?) {
+    this.form3.markAsDirty();
+    let formValue = data;
+    // tslint:disable-next-line: max-line-length
+    if (formValue.codeGroupe) this.createDMEData.groupeSanguin = {libelle: this.getGroupe(formValue.codeGroupe), code: formValue.codeGroupe};
+
     // tslint:disable-next-line: max-line-length
     if (formValue.taille) this.createDMEData.tailles = [{taille: +formValue.taille, date: this.uneDate.getFullYear() + '-' + (this.uneDate.getMonth() + 1) + '-' + (this.uneDate.getDay() + 1)}];
     // tslint:disable-next-line: max-line-length
     if (formValue.poids) this.createDMEData.poids = [{poids: +formValue.poids, date: this.uneDate.getFullYear() + '-' + (this.uneDate.getMonth() + 1) + '-' + (this.uneDate.getDay() + 1)}];
+  }
+  onCreateDME4(data?) {
+    this.form4.markAsDirty();
+    let formValue = data;
     // tslint:disable-next-line: max-line-length
     if (formValue.alergies) this.createDMEData.alergies = this.getAllergies(formValue.alergies, formValue.detailsAlergies);
-
+  }
+  onCreateDME5() {
+    this.form5.markAsDirty();
+    this.onCreateDME1(this.form1.value);
+    this.onCreateDME2(this.form2.value);
+    this.onCreateDME3(this.form3.value);
+    this.onCreateDME4(this.form4.value);
+    let formValue = this.form5.value;
     // tslint:disable-next-line: max-line-length
     if (formValue.maladies) this.createDMEData.maladies = this.getMaladies(formValue.maladies, formValue.traitementMaladies);
+    this.onCreateDME();
+  }
+  onCreateDME() {
+    this.createDMEData.createBy = this.vg.appID;
 
     this.dossierService.addDossier(this.createDMEData)
       .subscribe((res) => {
         if (res.body.success) {
           this.vg.patient = res.body;
           this.showToast('success', 'WAFU-Santé', res.body.message);
-          this.tel = formValue.tel;
+          this.tel = this.form2.value.tel;
+          this.vg.historyData.filtre = 'DME';
           this.vg.historyData.action = 'Création de dossier Médical';
           this.vg.historyData.refStructure = this.vg.user.response.ref_structure;
           this.vg.historyData.refUser = this.vg.user.response._id.toString();
@@ -218,14 +304,35 @@ export class CreerDMEComponent implements OnDestroy {
   getGroupe(groupe: string) {
     switch (groupe) {
       case 'A+':
-        return 'A plus';
+        return 'A Rhésius positif';
         break;
       case 'B+':
         return 'B Rhésius positif';
         break;
 
+      case 'AB+':
+        return 'AB Rhésius positif';
+        break;
+      case 'O+':
+        return 'O Rhésius positif';
+        break;
+
+      case 'A-':
+        return 'A Rhésius négatif';
+        break;
+      case 'B-':
+        return 'B Rhésius négatif';
+        break;
+
+      case 'AB-':
+        return 'AB Rhésius négatif';
+        break;
+      case 'O-':
+        return 'O Rhésius négatif';
+        break;
+
       default:
-          return 'B Rhésius positif';
+          return '-';
         break;
     }
   }
